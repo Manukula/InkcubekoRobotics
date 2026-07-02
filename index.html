@@ -1,0 +1,897 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <!--=============== REMIXICONS ===============-->
+   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+   <!--=============== FONT AWESOME ===============-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-ekJ8Vt3XvZ5uBIxq7Ndv9p7Q2Gy4tCh7x8fF/3ME8UW7z/0iXc/cKx32s5S0eje+x7gEKe5bp1Zdw3d0f+Kdkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   <!--=============== CSS ===============-->
+   <link rel="stylesheet" href="style.css">
+
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+   <title>Responsive dropdown menu - Bedimcode</title>
+</head>
+
+<style>
+   .slider-wrapper {
+      position: relative;
+      max-width: 200rem;
+      height: 650px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 10px;
+   }
+
+   .slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+   }
+
+   .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+   }
+
+   .slide.active {
+      opacity: 1;
+   }
+
+   /* section one editing */
+   .one {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Background Image */
+      background-image: url("b1.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 1rem 10px;
+      width: 1rem 8px;
+      /* Parallax Effect */
+      background-attachment: fixed;
+      padding: 50px;
+   }
+
+   .content {
+      max-width: 700px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+   }
+
+   .content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+   }
+
+   .content h2 {
+      font-size: 2rem;
+      color: #ffd700;
+      margin-bottom: 20px;
+   }
+
+   .content p {
+      line-height: 1.8;
+      margin-bottom: 15px;
+   }
+
+   .image {
+      max-width: fit-content 10rem;
+      max-height: fit-content 15rem;
+      margin-left: 20px;
+   }
+
+   /* section two */
+   /* Background Image and robotics core section */
+   .core {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column; /* Stack components vertically */
+      align-items: center;
+      justify-content: center;
+      gap: 30px;             /* Space between text and wheel layout */
+      background-image: url("b2.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      padding: 50px;
+      padding-bottom: 20px;
+   }
+
+   *,
+   *:before,
+   *:after {
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+   }
+
+   .wheel {
+      padding: 3rem 20px 5rem;
+      position: relative;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .wheelMainContent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+   }
+
+   .wheelContainer {
+      width: 100%;
+      padding-top: 0px;
+      transition: all 0.3s ease;
+   }
+
+   .wheelContainer:hover .wheelBlock::after {
+      font-size: 0px;
+   }
+
+   .wheelBlock {
+      width: 200px;
+      height: 350px;
+      background: transparent;
+      margin-top: 10px !important;
+      margin: 0 auto;
+      position: relative;
+      background: transparent; /*inner color of the wheel*/
+      transition: all 0.3s ease; 
+   }
+
+   .wheelBlock::after {
+      content: "Own Power";
+      width: 132px;
+      height: 132px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 1) 19%, rgba(227, 225, 225, 1) 84%); /*inner circele of the wheel */
+      overflow: hidden;
+      position: absolute;
+      top: 29%;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+      border-radius: 100%;
+      z-index: 2;
+      border: 8px solid rgb(255, 255, 255);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      text-transform: capitalize;
+      font-weight: 600;
+      z-index: 999;
+      color: #696969;
+      transition: all 0.4s ease;
+      background-size: 200% auto;
+      animation: wheelBlockAnimation 6s linear infinite;
+   }
+
+   @keyframes wheelBlockAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+   }
+
+   .wheelsPart {
+      position: relative;
+   }
+
+   .wheelsPartInnerBlock,
+   .wheelsPart,
+   .contentContainer1 {
+      transition: all 0.3s ease;
+   }
+
+   .wheelsPart .contentContainer {
+      visibility: hidden;
+      opacity: 0;
+      width: 0px;
+      height: 0px;
+      transition: all 0s ease;
+   }
+
+   .wheelsPart:hover .wheelsPartInnerBlock01 { transform: rotate(60deg) scaleX(1.4) scaleY(1.05); z-index: 99; border-radius: 40%; }
+   .wheelsPart:hover .wheelsPartInnerBlock02 { transform: rotate(120deg) scaleX(1.4) scaleY(1.05); z-index: 99; border-radius: 40%; }
+   .wheelsPart:hover .wheelsPartInnerBlock03 { transform: rotate(180deg) scaleX(1.4) scaleY(1.05); z-index: 99; border-radius: 40%; }
+   .wheelsPart:hover .wheelsPartInnerBlock04 { transform: rotate(240deg) scaleX(1.4) scaleY(1.05); z-index: 99; border-radius: 40%; }
+   .wheelsPart:hover .wheelsPartInnerBlock05 { transform: rotate(300deg) scaleX(1.4) scaleY(1.05); z-index: 99; border-radius: 40%; }
+   .wheelsPart:hover .wheelsPartInnerBlock06 { transform: rotate(360deg) scaleX(1.4) scaleY(1.05); z-index: 99; border-radius: 40%; }
+
+   .wheelsPart:hover .wheelsPartInnerBlock .wheelPartBorder { visibility: hidden; }
+   .wheelsPart:hover .contentContainer { visibility: visible; opacity: 1; transition: all 1s ease; }
+   .wheelBlock:hover::before .color01 { background: white ; }
+
+   .wheelBlock:before {
+      content: "";
+      width: 418px;
+      height: 418px;
+      overflow: hidden;
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+      border-radius: 100%;
+      border: 32px solid #ffffff;
+      z-index: 10;
+      pointer-events: none;
+   }
+
+   .wheelsPartInnerBlock {
+      clip-path: polygon(50% 50%, 100% 100%, 0 100%);
+      width: 200px;
+      height: 350px;
+      position: absolute;
+      -webkit-transform-origin: 49% 49%;
+      transform-origin: 50% 48%;
+      z-index: 1;
+      background: linear-gradient(90deg, #19222e, #202f39);
+      cursor: pointer;
+   }
+
+   .wheelsPartInnerBlock01 { transform: rotate(60deg) scaleX(1) scaleY(1); }
+   .wheelsPartInnerBlock02 { transform: rotate(120deg) scaleX(1) scaleY(1); }
+   .wheelsPartInnerBlock03 { transform: rotate(180deg); }
+   .wheelsPartInnerBlock04 { transform: rotate(240deg); }
+   .wheelsPartInnerBlock05 { transform: rotate(300deg); }
+   .wheelsPartInnerBlock06 { transform: rotate(360deg); }
+
+   .animateddDiv {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: rgb(16, 172, 131);
+   }
+
+   .wheelPartBorder {
+      position: absolute;
+      top: 65%;
+      overflow: hidden;
+      z-index: 2;
+      transform: rotate(180deg);
+   }
+
+   .wheelPartBorderBlock {
+      position: relative;
+      cursor: crosshair;
+      margin-top: 0px;
+      margin-bottom: -120px;
+      z-index: 1;
+      overflow: visible;
+      transition: width 0.3s, height 0.3s, transform 0.3s;
+      width: 149px;
+      height: 138px;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-bottom: 60px solid transparent;
+      border-top: 35px solid #fec225;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 100%;
+      transform: translateX(-17%);
+      box-shadow: -11px 0px 15px -15px rgba(0, 0, 0, 0.75);
+   }
+
+   .wheelPartIcon {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: 64%;
+      left: 13%;
+      z-index: 99999;
+      transform: rotate(180deg);
+   }
+
+   .wheelPartIconBlock {
+      position: relative;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      z-index: 38;
+      overflow: visible;
+      width: 100px;
+      height: 100px;
+      transform: translateX(0%);
+   }
+
+   .wheelPartIconBlock img {
+      width: 55px;
+      height: 55px;
+   }
+
+   .wheelsPart h3 {
+      position: absolute;
+      z-index: 9999;
+      top: 156px;
+      font-size: 15px;
+      text-align: center;
+      left: 55px;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.4s ease;
+   }
+
+   /* centre text of the hover icon */
+   .wheelsPart:hover h3 {
+      visibility: visible;
+      opacity: 1;
+      color: #fec225;
+   }
+
+   .contentContainer {
+      position: absolute;
+      top: 100%;
+      z-index: 99999;
+      transform: rotate(0deg);
+   }
+
+   .contentDiv {
+      position: relative;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      z-index: 38;
+      overflow: visible;
+      width: 200px;
+      transform: translateX(0%);
+   }
+
+   .contentDtails {
+      text-align: center;
+   }
+
+   .contentDtails h3 {
+      padding: 0;
+      margin: 0;
+      color: #fff;
+   }
+
+   .contentDtails p {
+      margin-top: 5px;
+      opacity: 0.6;
+   }
+
+   /* arrows for the wheel */
+   .contentContainer .arrowDiv {
+      width: 0;
+      height: 0;
+      border-top: 18px solid transparent;
+      border-right: 25px solid #fec225;
+      border-bottom: 18px solid transparent;
+      position: absolute;
+      right: -6px;
+   }
+
+   .contentContainer1 { left: -148%; top: 252px; }
+   .contentContainer .arrowDiv { transform: rotate(-29deg); }
+   .contentContainer1 .arrowDiv { top: -3px; left: 101%; }
+
+   .contentContainer2 { left: -140%; top: 20px; }
+   .contentContainer2 .arrowDiv { transform: rotate(30deg); right: -11px; top: 22px; }
+
+   .contentContainer3 { top: -110px; }
+   .contentContainer3 .arrowDiv { transform: rotate(90deg); right: 79px; bottom: -42px; }
+
+   .contentContainer4 { left: 149%; top: 34px; }
+   .contentContainer4 .arrowDiv { transform: rotate(151deg); right: 202px; bottom: -5px; }
+
+   .contentContainer5 { left: 138%; top: 261px; }
+   .contentContainer5 .arrowDiv { transform: rotate(210deg); right: 182px; bottom: 16px; }
+
+   .contentContainer6 { left:0%; top: 388px; }
+   .contentContainer6 .arrowDiv { transform: rotate(270deg); right: 90px; bottom: 39px; }
+
+   @media screen and (min-width: 793px) {
+      .wheelContainer {
+         max-width: 355px;
+         margin: 0 auto;
+         border-radius: 50%;
+         padding: 20px;
+      }
+   }
+
+   @media screen and (max-width: 792px) {
+      .wheelsPartInnerBlock {
+         position: relative;
+         clip-path: none;
+         transform-origin: 0% 0%;
+         width: auto;
+         transform: rotate(0deg) !important;
+         height: 190px;
+         border-radius: 10px !important;
+         z-index: 2 !important;
+      }
+
+      .wheelsPartInnerBlock:hover {
+         box-shadow: 0px 0px 15px -4px rgba(83, 83, 83, 0.75);
+      }
+
+      .wheelsPart {
+         flex: 33.33%;
+         height: 190px;
+      }
+
+      .wheelsPart .contentContainer {
+         visibility: visible;
+         opacity: 1;
+         pointer-events: none;
+      }
+
+      .wheelBlock {
+         width: auto;
+         height: auto;
+         display: flex;
+         flex-wrap: wrap;
+         align-content: space-between;
+         gap: 10px;
+         margin-top: 20px !important;
+      }
+
+      .wheelContainer:hover { padding-top: 0; }
+      .wheelBlock::after { display: none; }
+      .wheelBlock::before { display: none; }
+
+      .wheelsPart:hover .color01, .wheelsPart .color01 { transform: rotate(0deg) scaleX(1) scaleY(1); z-index: 99; border-radius: 0%; }
+      .wheelsPart:hover .color02, .wheelsPart .color02 { transform: rotate(0deg) scaleX(1) scaleY(1); z-index: 99; border-radius: 0%; }
+      .wheelsPart:hover .color03, .wheelsPart .color03 { transform: rotate(0deg) scaleX(1) scaleY(1); z-index: 99; border-radius: 0%; }
+      .wheelsPart:hover .color04, .wheelsPart .color04 { transform: rotate(0deg) scaleX(1) scaleY(1); z-index: 99; border-radius: 0%; }
+      .wheelsPart:hover .color05, .wheelsPart .color05 { transform: rotate(0deg) scaleX(1) scaleY(1); z-index: 99; border-radius: 0%; }
+      .wheelsPart:hover .color06, .wheelsPart .color06 { transform: rotate(0deg) scaleX(1) scaleY(1); z-index: 99; border-radius: 0%; }
+
+      .contentContainer .arrowDiv { display: none !important; }
+      .wheelPartBorder { display: none; }
+
+      .wheelPartIcon {
+         position: relative;
+         width: 55px;
+         height: 55px;
+         top: 15px;
+         left: 18px;
+         z-index: 99999;
+         transform: rotate(0deg);
+      }
+
+      .wheelPartIconBlock { width: 55px; height: 55px; }
+
+      .wheelsPart h3 {
+         pointer-events: none;
+         position: absolute;
+         z-index: 9;
+         top: 80px;
+         left: 18px !important;
+         font-size: 16px;
+         color: #fff !important;
+         visibility: visible !important;
+         opacity: 1 !important;
+      }
+
+      .wheelsPart:hover h3 { visibility: visible !important; }
+      .wheelsPart .contentContainer { visibility: visible; opacity: 1; z-index: 9; left: auto !important; top: 95px !important; bottom: auto; padding: 10px 17px; width: auto !important; }
+      .contentDiv { width: auto; }
+      .contentDtails { text-align: left; }
+      .contentDtails p { margin-top: 5px; opacity: 0.8; color: #fff; font-size: 14px; }
+      .wheelPartIconBlock img { width: 50px; height: 50px; }
+   }
+
+   @keyframes wheelBlockAnimation {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+   }
+
+   /* mobile for the core values */
+   @media screen and (max-width: 492px) {
+      .wheelsPart { flex: 40%; }
+   }
+
+   /* Video and text layout */
+   .robotics {
+       width: 100%;
+       min-height: 100vh;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 50px;
+       padding: 80px 8%;
+       background: #f8f8f8;
+       box-sizing: border-box;
+   }
+
+   .robotics .vid { flex: 1; }
+   .robotics .vid iframe {
+       width: 100%;
+       height: 550px;
+       border: none;
+       border-radius: 20px;
+       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+   }
+
+   .robotics .info { flex: 1; max-width: 600px; }
+   .robotics .info h2 { font-size: clamp(2rem, 4vw, 4rem); font-weight: 700; color: #111; margin-bottom: 20px; line-height: 1.1; }
+   .robotics .info p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 30px; }
+   .robotics .info .btn { display: inline-block; padding: 15px 35px; background: #000; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; transition: 0.3s; }
+   .robotics .info .btn:hover { background: #222; transform: translateY(-3px); }
+
+   @media (max-width: 992px) {
+       .robotics { gap: 30px; padding: 60px 5%; }
+       .robotics .vid iframe { height: 400px; }
+   }
+
+   @media (max-width: 768px) {
+       .robotics { flex-direction: column; text-align: center; padding: 50px 20px; }
+       .robotics .vid, .robotics .info { width: 100%; max-width: 100%; }
+       .robotics .vid iframe { height: 250px; border-radius: 15px; }
+       .robotics .info h2 { font-size: 2rem; }
+       .robotics .info p { font-size: 1rem; line-height: 1.7; }
+   }
+</style>
+
+<body>
+   <!--=============== HEADER ===============-->
+   <header class="header">
+      <nav class="nav container">
+         <img src="EIK-logo.png" alt="Herald Logo" class="nav__logo">
+         <div class="nav__data">
+            <div class="nav__toggle" id="nav-toggle">
+               <i class="ri-menu-line nav__burger"></i>
+               <i class="ri-close-line nav__close"></i>
+            </div>
+         </div>
+
+         <!--=============== NAV MENU ===============-->
+         <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+               <li><a href="#" class="nav__link">Home</a></li>
+
+               <!--=============== DROPDOWN 1 ===============-->
+               <li class="dropdown__item">
+                  <div class="nav__link">
+                     Missions <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                  </div>
+                  <ul class="dropdown__menu">
+                     <li>
+                        <a href="#" class="dropdown__link"></i> Mission1</a>                  
+                     </li>
+                      <li>
+                        <a href="#" class="dropdown__link"></i> Mission2</a>                  
+                     </li>
+                      <li>
+                        <a href="#" class="dropdown__link"></i> Mission3</a>                  
+                     </li>
+                      <li>
+                        <a href="#" class="dropdown__link"></i> Mission4</a>                  
+                     </li>
+                      <li>
+                        <a href="#" class="dropdown__link"></i> Mission5</a>                  
+                     </li>
+                     <li class="dropdown__subitem">
+                        <div class="dropdown__link"></div>
+                     </li>
+                  </ul>
+               </li>
+               
+               <li><a href="#" class="nav__link">Core values</a></li>
+
+               <li class="dropdown__item">
+                  <div class="nav__link">
+                     Join Us <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                  </div>
+                  <ul class="dropdown__menu">
+                     <li>
+                        <a href="#" class="dropdown__link"><i class="ri-user-line"></i> Register</a>                  
+                     </li>
+                     <li>
+                        <a href="#" class="dropdown__link"><i class="ri-message-3-line"></i> Messages</a>
+                     </li>
+                  </ul>
+               </li>
+
+               <li><a href="#" class="nav__link">Contact</a></li>
+            </ul>
+         </div>
+      </nav>
+   </header>
+
+   <!-- the first section of the website that shows the wrapper option for the website -->
+
+   <section class="first">
+
+
+      <div class="slider-wrapper">
+         <div class="slider" id="slider">
+            <img src="E1.png" class="slide active">
+            <img src="E2.png" class="slide">
+         </div>
+      </div>
+
+      <!-- <div class="welcome">
+         Welcome to inkcubeko Robotics, were we all about Tech, coding and innovoation ,<br>  but most importataly bringing fun </h1>
+      </div> -->
+   </section>
+
+   <section class="intro">
+      <img src="" alt="">
+   </section>
+   <script src="main.js"></script>
+
+   <section class="one">
+      <div class="content">
+         <h1>STEAMI Learning with</h1>
+         <h2>Inkcubeko Lego Games</h2>
+         <p>To create the leaders of tomorrow, we provide innovative STEM education through hands-on learning and creative play.</p>
+         <p>We believe that every child has the potential to become a problem solver, critical thinker, and innovator. Our programs are designed to inspire curiosity, creativity, and a love for learning in children of all ages.</p>
+      </div>
+      <div class="image">
+         <!-- <img src="b3.png" alt="Image"> -->
+      </div>
+   </section>
+
+   <section class="robotics">
+      <div class="vid">
+         <iframe src="https://www.youtube.com/embed/qlDVVqQs_LM?autoplay=1&mute=1&loop=1&playlist=qlDVVqQs_LM" title="Robotics Video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="info">
+         <h2>What is Robotics?</h2>
+         <p>Robotics is a multidisciplinary field that combines engineering, computer science, and technology to design, build, and operate robots. Robots are machines that can perform tasks autonomously or with minimal human intervention. They can be programmed to carry out a wide range of activities, from simple repetitive tasks to complex operations in industries such as manufacturing, healthcare, and space exploration.</p>
+         <a href="#" class="btn">Learn More</a>
+      </div>
+   </section>
+
+   <!--================= CORE VALUES SECTION =================-->
+   <section class="core">
+      <div class="content">
+         <h2>Robotics Core values</h2>
+         <p>At STEAMI, we are committed to fostering a learning environment built on these core values:</p>
+      </div>
+
+      <div class="wheel">
+         <div class="center_content wheelMainContent">
+            <div class="wheelContainer">
+               <div class="wheelBlock">
+                  
+                  <div class="wheelsPart">
+                     <h3 style="left: 64px">Creativity</h3>
+                     <div class="wheelsPartInnerBlock01 wheelsPartInnerBlock">
+                        <div class="wheelPartBorder"><div class="wheelPartBorderBlock"></div></div>
+                        <div class="wheelPartIcon">
+                           <div class="wheelPartIconBlock"><img src="innovation.webp" /></div>
+                        </div>
+                     </div>
+                     <div class="contentContainer contentContainer1">
+                        <div class="contentDiv">
+                           <div class="arrowDiv"></div>
+                           <div class="contentDtails"><b><p style="color: white;">We turn ideas into reality through creativity</p></b></div>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div class="wheelsPart">
+                     <h3 style="left: 70px">Empathy</h3>
+                     <div class="wheelsPartInnerBlock02 wheelsPartInnerBlock">
+                        <div class="wheelPartBorder"><div class="wheelPartBorderBlock"></div></div>
+                        <div class="wheelPartIcon">
+                           <div class="wheelPartIconBlock"><img src="friendship.webp" /></div>
+                        </div>
+                     </div>
+                     <div class="contentContainer contentContainer2">
+                        <div class="contentDiv">
+                           <div class="arrowDiv"></div>
+                           <div class="contentDtails"><b></b><p style="color: white;">Understanding others is key to growth</p></b></div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="wheelsPart">
+                     <h3 style="left: 63px">Teamwork</h3>
+                     <div class="wheelsPartInnerBlock03 wheelsPartInnerBlock">
+                        <div class="wheelPartBorder"><div class="wheelPartBorderBlock"></div></div>
+                        <div class="wheelPartIcon">
+                           <div class="wheelPartIconBlock"><img src="collaborate.webp" /></div>
+                        </div>
+                     </div>
+                     <div class="contentContainer contentContainer3">
+                        <div class="contentDiv">
+                           <div class="arrowDiv"></div>
+                           <div class="contentDtails"><b></b><p style="color: white;">Together, we accomplish more</p></b></div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="wheelsPart">
+                     <h3 style="left: 65px">Wellbeing</h3>
+                     <div class="wheelsPartInnerBlock04 wheelsPartInnerBlock">
+                        <div class="wheelPartBorder"><div class="wheelPartBorderBlock"></div></div>
+                        <div class="wheelPartIcon">
+                           <div class="wheelPartIconBlock"><img src="safety.webp" /></div>
+                        </div>
+                     </div>
+                     <div class="contentContainer contentContainer4">
+                        <div class="contentDiv">
+                           <div class="arrowDiv"></div>
+                           <div class="contentDtails"><b></b><p style="color: white;">We care about health and happiness</p></b></div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="wheelsPart">
+                     <h3 style="left: 54px">Achievement</h3>
+                     <div class="wheelsPartInnerBlock05 wheelsPartInnerBlock">
+                        <div class="wheelPartBorder"><div class="wheelPartBorderBlock"></div></div>
+                        <div class="wheelPartIcon">
+                           <div class="wheelPartIconBlock"><img src="high-achiever.webp" /></div>
+                        </div>
+                     </div>
+                     <div class="contentContainer contentContainer5">
+                        <div class="contentDiv">
+                           <div class="arrowDiv"></div>
+                           <div class="contentDtails"><b></b><p style="color: white;">We celebrate every success, big or small</p></b></div>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div class="wheelsPart">
+                     <h3 style="left: 69px">Honesty</h3>
+                     <div class="wheelsPartInnerBlock06 wheelsPartInnerBlock">
+                        <div class="wheelPartBorder"><div class="wheelPartBorderBlock"></div></div>
+                        <div class="wheelPartIcon">
+                           <div class="wheelPartIconBlock"><img src="integration.webp" /></div>
+                        </div>
+                     </div>
+                     <div class="contentContainer contentContainer6">
+                        <div class="contentDiv">
+                           <div class="arrowDiv"></div>
+                           <div class="contentDtails"><b></b><p style="color: white;" >We speak the truth and build trust</p></b></div>
+                        </div>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+
+
+<!-- gallery section for the images of the inkcubeko competition -->
+
+   <section class="gallery">
+
+
+
+   </section>
+
+
+
+   <!-- game met sections  -->
+
+   <section class="game">
+      <div class="container">
+         <h2 class="section-title">Game Map</h2>
+         <p class="section-description">Explore the game map and discover the exciting challenges that await you!</p>
+
+         <div class="map-stage">
+            <div class="img-zoom-container">
+               <img id="myimage" src="Map.png" alt="Game Map">
+            </div>
+
+            <div id="myresult" class="img-zoom-result"></div>
+
+            <div class="floating-card card1">
+               <img src="solar farm.png" alt="Solar Farm">
+               <p>Solar Farm</p>
+            </div>
+
+            <div class="floating-card card2">
+               <img src="Cape Town.png" alt="Cape Town">
+               <p>Cape Town</p>
+            </div>
+
+            <div class="floating-card card3">
+               <img src="Community Recycling.png" alt="Community Recycling">
+               <p>Community Recycling</p>
+            </div>
+
+            <div class="floating-card card4">
+               <img src="inkcubeko.png" alt="Inkcubeko">
+               <p>Incukubeko</p>
+            </div>
+         </div>
+      </div>
+   </section>
+
+
+   
+
+
+
+
+
+
+   
+    
+
+
+<!-- latest news of inkcubeko robotics and the events that are happening in the company -->
+
+   <section class="news-section">
+    <div class="container">
+        <h2 class="section-title">Latest News</h2>
+
+        <div class="news-grid">
+
+            <!-- News Card 1 -->
+            <div class="news-card">
+                <img src="news1.png" alt="News Image">
+
+                <div class="news-content">
+                    <h3>Inkcubeko FLL Regional Competition</h3>
+
+                    <p>
+                        Inkcubeko Robotics hosted the FLL Regional Competition, where teams showcased their innovative solutions and competed for a chance to advance to the finals. The event was a celebration of creativity, teamwork, and problem-solving skills.
+                    </p>
+                </div>
+            </div>
+
+            <!-- News Card 2 -->
+            <div class="news-card">
+                <img src="news2.png" alt="News Image">
+
+                <div class="news-content">
+                    <h3>Teens in AI</h3>
+
+                    <p>
+                     Learners from across George gathered at the Inkcubeko Youth and Science Centre to explore the power of AI and compete in the Teens in AI Hackathon, using technology to solve real-world challenges
+                    </p>
+                </div>
+            </div>
+
+            <!-- News Card 3 -->
+            <div class="news-card">
+                <video controls preload="metadata" poster="finals_poster.jpg" style="width:100%; height:300px; object-fit:cover; background:#000;">
+                    <source src="finals.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+                <div class="news-content">
+                    <h3>Road to the Finals FLL 2025</h3>
+
+                    <p>
+                        3 teams who participating to inkcubeko FLL regional competition, they aventured to the finals of the FLL 2025, and they are ready to show their skills and creativity on the big stage.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>
